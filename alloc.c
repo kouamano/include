@@ -352,6 +352,15 @@ unsigned int *ui_alloc_vec(int num){
 	return(v);
 }
 
+unsigned int *ui_calloc_vec(int num){
+	unsigned int *v;
+	if((v = calloc(num,(size_t)sizeof(unsigned int))) == NULL){
+		fprintf(stderr,"[E]failed : calloc() at %ld byte.\n",(long int)sizeof(int)*num);
+		exit(1);
+	}
+	return(v);
+}
+
 long long int *lli_alloc_vec(int num){
 	long long int *v;
 	if((v = malloc((size_t)sizeof(long long int)*num)) == NULL){

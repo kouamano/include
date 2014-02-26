@@ -30,6 +30,16 @@ int *i_alloc_vec(int num){
 	return(v);
 }
 
+/* pointer */
+int **pi_alloc_vec(int num){
+	int **v;
+	if((v = malloc((size_t)sizeof(uint *) * num)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(int *) * num);
+		exit(1);
+	}
+	return(v);
+}
+
 float *f_alloc_vec(int num){
 	float *v;
 	if((v = malloc((size_t)sizeof(float)*num)) == NULL){

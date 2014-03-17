@@ -521,6 +521,17 @@ void min_list(int len, float *list, float out_min){
 	}
 }
 
+float f_min_list(int len, float *list){
+	int l;
+	out_min = list[0];
+	for(l=1;l<len;l++){
+		if(out_min > list[l]){
+			out_min = list[l];
+		}
+	}
+	return(out_min);
+}
+
 void max_pos_list(int len, float *list, int *pos, float *out_max){
 	int l;
 	*out_max = list[0];

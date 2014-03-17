@@ -523,6 +523,7 @@ void min_list(int len, float *list, float out_min){
 
 float f_min_list(int len, float *list){
 	int l;
+	float out_min;
 	out_min = list[0];
 	for(l=1;l<len;l++){
 		if(out_min > list[l]){

@@ -501,22 +501,22 @@ void synteny_dist_triangle(int num, int dim, float **arr, float **dist_table, in
 	}
 }
 
-void max_list(int len, float *list, float out_max){
+void max_list(int len, float *list, float *out_max){
 	int l;
-	out_max = list[0];
+	*out_max = list[0];
 	for(l=1;l<len;l++){
-		if(out_max < list[l]){
-			out_max = list[l];
+		if(*out_max < list[l]){
+			*out_max = list[l];
 		}
 	}
 }
 
-void min_list(int len, float *list, float out_min){
+void min_list(int len, float *list, float *out_min){
 	int l;
-	out_min = list[0];
+	*out_min = list[0];
 	for(l=1;l<len;l++){
-		if(out_min > list[l]){
-			out_min = list[l];
+		if(*out_min > list[l]){
+			*out_min = list[l];
 		}
 	}
 }

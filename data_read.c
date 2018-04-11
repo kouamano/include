@@ -27,11 +27,11 @@
 int read_itable_from_stream(int num, int dim, FILE *stream, int **table){
 	int i;
 	int j;
-	int ftmp;
+	int tmp;
 	for(i=0;i<num;i++){
 		for(j=0;j<dim;j++){
-			fscanf(stream,"%d",&ftmp);
-			table[i][j] = ftmp;
+			fscanf(stream,"%d",&tmp);
+			table[i][j] = tmp;
 		}
 	}
 	return(0);

@@ -24,6 +24,19 @@
 #define TMP_STR_LEN_LONG 2048
 #endif
 
+int read_itable_from_stream(int num, int dim, FILE *stream, int **table){
+	int i;
+	int j;
+	int ftmp;
+	for(i=0;i<num;i++){
+		for(j=0;j<dim;j++){
+			fscanf(stream,"%d",&ftmp);
+			table[i][j] = ftmp;
+		}
+	}
+	return(0);
+}
+
 int read_ftable_from_stream(int num, int dim, FILE *stream, float **table){
 	int i;
 	int j;

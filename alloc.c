@@ -1,5 +1,9 @@
 /* alloc.c */
 
+/* NEEDS     */
+/* stdio.h   */
+/* complex.h */
+
 /*************************************************/
 /* Copyright (c) 2003-2005 AMANO Kou             */
 /* University of Tsukuba                         */
@@ -25,6 +29,15 @@ int *i_alloc_vec(int num){
 	int *v;
 	if((v = malloc((size_t)sizeof(int)*num)) == NULL){
 		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(int)*num);
+		exit(1);
+	}
+	return(v);
+}
+
+complex *x_alloc_vec(int num){
+	complex *v;
+	if((v = malloc((size_t)sizeof(complex)*num)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(complex)*num);
 		exit(1);
 	}
 	return(v);
@@ -99,6 +112,17 @@ double *d_calloc_vec(int num){
 	return(v);
 }
 
+complex *x_calloc_vec(int num){
+	complex *v;
+	if((v = calloc((size_t)num,(size_t)sizeof(complex))) == NULL){
+		fprintf(stderr,"[E]failed : calloc() at %ld byte.\n",(long int)sizeof(complex)*num);
+		exit(1);
+	}
+	return(v);
+}
+
+
+
 /**************************************************
  * _alloc_mat
  *************************************************/
@@ -163,6 +187,23 @@ double **d_alloc_mat(int num, int dim){
 	}
 	if((m[0] = malloc((size_t)sizeof(double)*num*dim)) == NULL){
 		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(double)*num*dim);
+		exit(1);
+	}
+	for(i=1;i<num;i++){
+		m[i] = m[i-1]+dim;
+	}
+	return(m);
+}
+
+complex **x_alloc_mat(int num, int dim){
+	complex **m;
+	int i;
+	if((m = malloc((size_t)sizeof(complex *)*num)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(complex *)*num);
+		exit(1);
+	}
+	if((m[0] = malloc((size_t)sizeof(complex)*num*dim)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(complex)*num*dim);
 		exit(1);
 	}
 	for(i=1;i<num;i++){

@@ -9,6 +9,7 @@
 #ifndef THREADING
 #define THREADING 4
 #endif
+//comment
 
 float sq_euc_dist(int len, float *list1, float *list2){
 	int i;

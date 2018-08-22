@@ -64,6 +64,10 @@ int read_xtable_from_stream(int num, int dim, FILE *stream, complex **table){
 	}
 	return(0);
 }
+/* format:
+100+10I 200+10I
+300+-10I 400+-10I
+*/
 
 int read_ID_ftable_from_stream(int num, int dim, FILE *stream, float **table, char **IDs){
 	int i;

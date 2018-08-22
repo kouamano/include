@@ -50,6 +50,21 @@ int read_ftable_from_stream(int num, int dim, FILE *stream, float **table){
 	return(0);
 }
 
+int read_xtable_from_stream(int num, int dim, FILE *stream, complex **table){
+	int i;
+	int j;
+	complex xtmp;
+	double xre,xim;
+	for(i=0;i<num;i++){
+		for(j=0;j<dim;j++){
+			fscanf(stream,"%lf+%lfI",&xre,&xim);
+			xtmp = xre + xim*I;
+			table[i][j] = xtmp;
+		}
+	}
+	return(0);
+}
+
 int read_ID_ftable_from_stream(int num, int dim, FILE *stream, float **table, char **IDs){
 	int i;
 	int j;

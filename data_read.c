@@ -106,6 +106,37 @@ int read_flist_from_stream(int num, FILE *stream, float *list){
 	return(0);
 }
 
+int read_ilist_from_string(char *string, int *list){
+	int i = 0;
+	int len = 0;
+	int in_term = 0;
+	int in_fs = 0;
+	int list_ptr = 0;
+	len = strlen(string);
+	/* drop last FSs */
+	while(*(string+len-1) == FS){
+		*(string+len) = '\0';
+		len--;
+	}
+	sscanf(string+i,"%d",list+list_ptr);
+	in_fs++;
+	list_ptr++;
+	for(i=0;i<len;i++){
+		if(*(string+i) != FS){
+			in_term++;
+			in_fs = 0;
+		}else{
+			in_term = 0;
+			in_fs++;
+		}
+		if(in_fs == 1){
+			sscanf(string+i,"%d",list+list_ptr);
+			list_ptr++;
+		}
+	}
+	return(list_ptr);
+}
+
 int read_flist_from_string(char *string, float *list){
 	int i = 0;
 	int len = 0;

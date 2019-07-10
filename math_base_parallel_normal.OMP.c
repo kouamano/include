@@ -8,6 +8,11 @@
 /* kamano@affrc.go.jp                            */
 /*************************************************/
 
+/***************************/
+/* COPIED from math_base.c */
+/* TODO insert pragma      */
+/***************************/
+
 #include <math.h>
 #ifndef max
 #define max(a,b) (((a)>(b))?(a):(b))
@@ -15,6 +20,61 @@
 #ifndef min
 #define min(a,b) (((a)<(b))?(a):(b))
 #endif
+
+float norm(int len, float *list){
+        int i;
+        float nor = 0;
+        for(i=0;i<len;i++){
+                //nor += pow(list[i],2);
+                nor += (list[i] * list[i]);
+        }
+        nor = sqrt(nor);
+        return(nor);
+}
+
+float inner(int len, float *list1, float *list2){
+        int i;
+        float inn = 0;
+        for(i=0;i<len;i++){
+                inn += (list1[i] * list2[i]);
+        }
+        return(inn);
+}
+
+float waf(int len, float *list1, float *list2){
+        int i = 0;
+        float count_list1 = 0;
+        float count_list2 = 0;
+        float *weight = NULL;
+        float *Pi = NULL;
+        float ret = 0;
+        for(i=0;i<len;i++){
+                count_list1 += list1[i];
+                count_list2 += list2[i];
+        }
+        weight = f_calloc_vec(len);
+        for(i=0;i<len;i++){
+                weight[i] = list1[i] + list2[i];
+                if(weight[i] == 0){
+                        ;
+                }else{
+                        weight[i] = 1/weight[i];
+                }
+        }
+        Pi = f_balloc_vec(len,1);
+        for(i=0;i<len;i++){
+                Pi[i] = list1[i] * list2[i];
+                Pi[i] = Pi[i] * weight[i];
+        }
+        for(i=0;i<len;i++){
+                ret += Pi[i];
+        }
+        ret = ret * (count_list1 + count_list2) / (count_list1 * count_list2);
+        free(weight);
+        free(Pi);
+        return(ret);
+}
+
 
 float sq_euc_dist(int len, float *list1, float *list2){
 	int i;
@@ -34,6 +94,36 @@ float euc_dist(int len, float *list1, float *list2){
 	return(sqrt(sq_sum));
 }
 
+float cos_dist(int len, float *list1, float *list2){
+        float nor1 = 0;
+        float nor2 = 0;
+        float dist = 0;
+        nor1 = norm(len,list1);
+        nor2 = norm(len,list2);
+        dist = inner(len,list1,list2);
+        dist = 1 - (dist / nor1 / nor2);
+        return(dist);
+}
+
+float naf_dist(int len, float *list1, float *list2){
+        float af11 = 0;
+        float af22 = 0;
+        float af12 = 0;
+        float dist = 0;
+        af11 = inner(len,list1,list1);
+        af22 = inner(len,list2,list2);
+        af12 = inner(len,list1,list2);
+        //dist = af11 * af22 / af12 / af12;
+        dist = af12 * af12 / af11 / af22;
+        dist = 1-dist;
+        return(dist);
+}
+
+float nwaf_dist(int len, float *list1, float *list2){
+        return(1 - waf(len,list1,list2));
+}
+
+ 
 void sq_euc_dist_list(int num, int dim, float **arr, float *list, float *dist_list){
 	int l;
 	#pragma omp parallel for
@@ -82,6 +172,17 @@ void euc_dist_table(int num, int dim, float **arr, float **dist_table){
 		}
 	}
 }
+
+void euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num;l++){
+                for(m=0;m<num;m++){
+                        dist_table[l][m] = euc_dist(dim,arr[l],arr[m]);
+                }
+        }
+}
+
 
 void euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
@@ -425,6 +526,26 @@ void min_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list,
         }
 }
 
+void cos_dist_triangle(int num, int dim, float **arr, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num;l++){
+                for(m=0;m<l;m++){
+                        dist_table[l][m] = cos_dist(dim,arr[l],arr[m]);
+                }
+        }
+}
+
+void cos_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num1;l++){
+                for(m=0;m<num2;m++){
+                        dist_table[l][m] = cos_dist(dim,arr1[l],arr2[m]);
+                }
+        }
+}
+
 
 void add_column_of_matrix(int num, int dim, int *ref_list, float **matrix, float *list){
         int l;
@@ -440,6 +561,46 @@ void dif_2lists(int num, float *list1, float *list2, float *list_out){
         int l;
         for(l=0;l<num;l++){
                 list_out[l] = list2[l] - list1[l];
+        }
+}
+
+void naf_dist_triangle(int num, int dim, float **arr, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num;l++){
+                for(m=0;m<l;m++){
+                        dist_table[l][m] = naf_dist(dim,arr[l],arr[m]);
+                }
+        }
+}
+
+void naf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num1;l++){
+                for(m=0;m<num2;m++){
+                        dist_table[l][m] = naf_dist(dim,arr1[l],arr2[m]);
+                }
+        }
+}
+
+void nwaf_dist_triangle(int num, int dim, float **arr, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num;l++){
+                for(m=0;m<l;m++){
+                        dist_table[l][m] = nwaf_dist(dim,arr[l],arr[m]);
+                }
+        }
+}
+
+void nwaf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
+        int l;
+        int m;
+        for(l=0;l<num1;l++){
+                for(m=0;m<num2;m++){
+                        dist_table[l][m] = nwaf_dist(dim,arr1[l],arr2[m]);
+                }
         }
 }
 

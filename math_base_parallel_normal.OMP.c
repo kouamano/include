@@ -320,6 +320,130 @@ void f_dif_2lists(int num, float *list1, float *list2, float *list_out){
 		list_out[l] = list2[l] - list1[l];
 	}
 }
+
+void max_list_from_matrix(int dim, int num, float **matrix, float *out_list, int axis){
+        int l;
+        int m;
+        if(axis == 1){
+                for(l=0;l<num;l++){
+                        out_list[l] = matrix[l][0];
+                        for(m=1;m<dim;m++){
+                                if(out_list[l] < matrix[l][m]){
+                                        out_list[l] = matrix[l][m];
+                                }
+                        }
+                }
+        }else if(axis == 0){
+                for(m=0;m<dim;m++){
+                        out_list[m] = matrix[0][m];
+                        for(l=0;l<num;l++){
+                                if(out_list[m] < matrix[l][m]){
+                                        out_list[m] = matrix[l][m];
+                                }
+                        }
+                }
+        }
+}
+
+void min_list_from_matrix(int dim, int num, float **matrix, float *out_list, int axis){
+        int l;
+        int m;
+        if(axis == 1){
+                for(l=0;l<num;l++){
+                        out_list[l] = matrix[l][0];
+                        for(m=1;m<dim;m++){
+                                if(out_list[l] > matrix[l][m]){
+                                        out_list[l] = matrix[l][m];
+                                }
+                        }
+                }
+        }else if(axis == 0){
+                for(m=0;m<dim;m++){
+                        out_list[m] = matrix[0][m];
+                        for(l=0;l<num;l++){
+                                if(out_list[m] > matrix[l][m]){
+                                        out_list[m] = matrix[l][m];
+                                }
+                        }
+                }
+        }
+}
+
+void max_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list, int axis){
+        int l;
+        int m;
+        if(axis == 1){
+                for(l=0;l<num;l++){
+                        out_list[l] = matrix[l][0];
+                        pos[l] = 0;
+                        for(m=1;m<dim;m++){
+                                if(out_list[l] < matrix[l][m]){
+                                        out_list[l] = matrix[l][m];
+                                        pos[l] = m;
+                                }
+                        }
+                }
+        }else if(axis == 0){
+                for(m=0;m<dim;m++){
+                        out_list[m] = matrix[0][m];
+                        pos[m] = 0;
+                        for(l=1;l<num;l++){
+                                if(out_list[m] < matrix[l][m]){
+                                        out_list[m] = matrix[l][m];
+                                        pos[m] = l;
+                                }
+                        }
+                }
+        }
+}
+
+void min_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list, int axis){
+        int l;
+        int m;
+        if(axis == 1){
+                for(l=0;l<num;l++){
+                        out_list[l] = matrix[l][0];
+                        pos[l] = 0;
+                        for(m=1;m<dim;m++){
+                                if(out_list[l] > matrix[l][m]){
+                                        out_list[l] = matrix[l][m];
+                                        pos[l] = m;
+                                }
+                        }
+                }
+        }else if(axis == 0){
+                for(m=0;m<dim;m++){
+                        out_list[m] = matrix[0][m];
+                        pos[m] = 0;
+                        for(l=1;l<num;l++){
+                                if(out_list[m] > matrix[l][m]){
+                                        out_list[m] = matrix[l][m];
+                                        pos[m] = l;
+                                }
+                        }
+                }
+        }
+}
+
+
+void add_column_of_matrix(int num, int dim, int *ref_list, float **matrix, float *list){
+        int l;
+        int m;
+        for(l=0;l<num;l++){
+                for(m=0;m<dim;m++){
+                        list[m] += matrix[ref_list[l]][m];
+                }
+        }
+}
+
+void dif_2lists(int num, float *list1, float *list2, float *list_out){
+        int l;
+        for(l=0;l<num;l++){
+                list_out[l] = list2[l] - list1[l];
+        }
+}
+
+
 /*
 void mk_flag_list(int num, int num_flag, int *flaged_list, int *out_list){
 	int l;

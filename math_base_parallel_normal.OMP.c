@@ -10,7 +10,7 @@
 
 /***************************/
 /* COPIED from math_base.c */
-/* TODO insert pragma      */
+/* DONE: insert pragma     */
 /***************************/
 
 #include <math.h>

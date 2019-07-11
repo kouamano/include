@@ -143,7 +143,7 @@ void euc_dist_list(int num, int dim, float **arr, float *list, float *dist_list)
 void sq_euc_dist_table(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for shared(m)
+	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<num;m++){
 			dist_table[l][m] = sq_euc_dist(dim,arr[l],arr[m]);
@@ -154,7 +154,7 @@ void sq_euc_dist_table(int num, int dim, float **arr, float **dist_table){
 void sq_euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for shared(m)
+	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = sq_euc_dist(dim,arr[l],arr[m]);
@@ -165,7 +165,7 @@ void sq_euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void euc_dist_table(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for shared(m)
+	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<num;m++){
 			dist_table[l][m] = euc_dist(dim,arr[l],arr[m]);
@@ -176,7 +176,7 @@ void euc_dist_table(int num, int dim, float **arr, float **dist_table){
 void euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
         int l;
         int m;
-	#pragma omp parallel for shared(m)
+	#pragma omp parallel for private(m)
         for(l=0;l<num;l++){
                 for(m=0;m<num;m++){
                         dist_table[l][m] = euc_dist(dim,arr[l],arr[m]);
@@ -188,7 +188,7 @@ void euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 void euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for shared(m)
+	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = euc_dist(dim,arr[l],arr[m]);
@@ -199,7 +199,6 @@ void euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void float_max_list(int len, float *list, float out_max){
 	int l;
 	out_max = list[0];
-	#pragma omp parallel for shared(out_max)
 	for(l=1;l<len;l++){
 		if(out_max < list[l]){
 			out_max = list[l];
@@ -210,7 +209,6 @@ void float_max_list(int len, float *list, float out_max){
 void float_min_list(int len, float *list, float out_min){
 	int l;
 	out_min = list[0];
-	#pragma omp parallel for shared(out_min)
 	for(l=1;l<len;l++){
 		if(out_min > list[l]){
 			out_min = list[l];
@@ -222,7 +220,6 @@ void float_min_pos_list(int len, float *list, int *pos, float *out_min){
 	int l;
 	*out_min = list[0];
 	*pos = 0;
-	#pragma omp parallel for
 	for(l=1;l<len;l++){
 		if(*out_min > list[l]){
 			*out_min = list[l];

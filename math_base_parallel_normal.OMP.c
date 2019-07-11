@@ -8,10 +8,11 @@
 /* kamano@affrc.go.jp                            */
 /*************************************************/
 
-/***************************/
-/* COPIED from math_base.c */
-/* DONE: insert pragma     */
-/***************************/
+/**********************************/
+/* COPIED from math_base.c        */
+/* DONE: insert pragma            */
+/* TODO: avoid segmentation-falt  */
+/**********************************/
 
 #include <math.h>
 #ifndef max

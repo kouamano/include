@@ -132,6 +132,36 @@ char **c_alloc_mat(int num, int dim){
 	return(c);
 }
 
+char ***S_alloc_mat(int num, int dim, int len){
+	char ***c;
+	int i;
+	int j;
+	if((c = malloc((size_t)sizeof(char *)*num)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(char *)*num);
+		exit(1);
+	}
+	if((c[0] = malloc((size_t)sizeof(char)*num*dim)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(char)*num*dim);
+		exit(1);
+	}
+	for(i=1;i<num;i++){
+		c[i] = c[i-1]+dim;
+	}
+	if((c[0][0] = malloc((size_t)sizeof(char)*num*dim*len)) == NULL){
+		fprintf(stderr,"[E]failed : malloc() at %ld byte.\n",(long int)sizeof(char)*num*dim*len);
+		exit(1);
+	}
+	for(i=1;i<num;i++){
+		//c[i] = c[i-1]+dim;
+		for(j=1;j<dim;j++){
+			c[i][j] = c[i][j-1]+len;
+		}
+	}
+
+	return(c);
+}
+
+
 int **i_alloc_mat(int num, int dim){
 	int **m;
 	int i;

@@ -9,6 +9,9 @@
 /* <kamano@affrc.go.jp>,<amano@brc.riken.jp>     */
 /*************************************************/
 
+/* !! fail to parallelize !! */
+/* !! don't use           !! */
+
 #include <math.h>
 #ifndef max
 #define max(a,b) (((a)>(b))?(a):(b))

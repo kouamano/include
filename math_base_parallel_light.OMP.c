@@ -81,6 +81,7 @@ float waf(int len, float *list1, float *list2){
                 }
         }
         Pi = f_balloc_vec(len,1);
+	#pragma omp parallel for
         for(i=0;i<len;i++){
                 Pi[i] = list1[i] * list2[i];
                 Pi[i] = Pi[i] * weight[i];
@@ -111,6 +112,7 @@ float waf_bf(int len, float *list1, float *list2, float *weight, float *Pi){
                         weight[i] = 1/weight[i];
                 }
         }
+	#pragma omp parallel for
         for(i=0;i<len;i++){
                 Pi[i] = list1[i] * list2[i];
                 Pi[i] = Pi[i] * weight[i];
@@ -137,6 +139,7 @@ float waf_multi(int num_vec, int size_vec, int *count_vec, float **gram_vec_vec)
                         weight_vec[j] += gram_vec_vec[i][j];
                 }
         }
+	#pragma omp parallel for
         for(j=0;j<size_vec;j++){
                 if(weight_vec[j] != 0){
                         weight_vec[j] = 1/weight_vec[j];
@@ -154,6 +157,7 @@ float waf_multi(int num_vec, int size_vec, int *count_vec, float **gram_vec_vec)
         /* *) */
         //f_print_vec(3,prod_vec,stdout);
         /* (* weight_vec * prod_vec */
+	#pragma omp parallel for
         for(j=0;j<size_vec;j++){
                 prod_vec[j] = weight_vec[j] * prod_vec[j];
         }
@@ -310,6 +314,7 @@ float synteny_dist(int len, float *list1, float *list2, int axlen, int *ax){
 			}
 		}
 	}
+	#pragma omp parallel for
 	for(i=0;i<len;i++){
 		tmp_sample[i] = list2[i] - list1[i];
 	}
@@ -322,6 +327,7 @@ float synteny_dist(int len, float *list1, float *list2, int axlen, int *ax){
 
 void cos_dist_list(int num, int dim, float **arr, float *list, float *dist_list){
 	int l;
+	#pragma omp parallel for
 	for(l=0;l<num;l++){
 		dist_list[l] = cos_dist(dim,list,arr[l]);
 	}
@@ -346,6 +352,7 @@ void euc_dist_list(int num, int dim, float **arr, float *list, float *dist_list)
 void cos_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
+	#pragma omp parallel for
 	for(l=0;l<num;l++){
 		for(m=0;m<num;m++){
 			dist_table[l][m] = cos_dist(dim,arr[l],arr[m]);

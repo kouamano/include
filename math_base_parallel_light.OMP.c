@@ -346,7 +346,6 @@ void euc_dist_list(int num, int dim, float **arr, float *list, float *dist_list)
 void cos_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<num;m++){
 			dist_table[l][m] = cos_dist(dim,arr[l],arr[m]);
@@ -357,7 +356,6 @@ void cos_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 void sq_euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<num;m++){
 			dist_table[l][m] = sq_euc_dist(dim,arr[l],arr[m]);
@@ -368,7 +366,6 @@ void sq_euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 void euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<num;m++){
 			dist_table[l][m] = euc_dist(dim,arr[l],arr[m]);
@@ -379,7 +376,6 @@ void euc_dist_sqtable(int num, int dim, float **arr, float **dist_table){
 void euc_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num1;l++){
 		for(m=0;m<num2;m++){
 			dist_table[l][m] = euc_dist(dim,arr1[l],arr2[m]);
@@ -390,7 +386,6 @@ void euc_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, flo
 void cos_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num1;l++){
 		for(m=0;m<num2;m++){
 			dist_table[l][m] = cos_dist(dim,arr1[l],arr2[m]);
@@ -401,7 +396,6 @@ void cos_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, flo
 void iaf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num1;l++){
 		for(m=0;m<num2;m++){
 			dist_table[l][m] = iaf_dist(dim,arr1[l],arr2[m]);
@@ -412,7 +406,6 @@ void iaf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, flo
 void naf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num1;l++){
 		for(m=0;m<num2;m++){
 			dist_table[l][m] = naf_dist(dim,arr1[l],arr2[m]);
@@ -423,7 +416,6 @@ void naf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, flo
 void nwaf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num1;l++){
 		for(m=0;m<num2;m++){
 			dist_table[l][m] = nwaf_dist(dim,arr1[l],arr2[m]);
@@ -434,7 +426,6 @@ void nwaf_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, fl
 void synteny_dist_table(int num1, float **arr1, int num2, float **arr2, int dim, float **dist_table, int axlen, int *ax){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num1;l++){
 		for(m=0;m<num2;m++){
 			dist_table[l][m] = synteny_dist(dim,arr1[l],arr2[m],axlen,ax);
@@ -445,7 +436,6 @@ void synteny_dist_table(int num1, float **arr1, int num2, float **arr2, int dim,
 void cos_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = cos_dist(dim,arr[l],arr[m]);
@@ -456,7 +446,6 @@ void cos_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void iaf_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = iaf_dist(dim,arr[l],arr[m]);
@@ -467,7 +456,6 @@ void iaf_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void naf_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = naf_dist(dim,arr[l],arr[m]);
@@ -478,7 +466,6 @@ void naf_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void nwaf_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = nwaf_dist(dim,arr[l],arr[m]);
@@ -489,7 +476,6 @@ void nwaf_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void sq_euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = sq_euc_dist(dim,arr[l],arr[m]);
@@ -500,7 +486,6 @@ void sq_euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = euc_dist(dim,arr[l],arr[m]);
@@ -511,7 +496,6 @@ void euc_dist_triangle(int num, int dim, float **arr, float **dist_table){
 void synteny_dist_triangle(int num, int dim, float **arr, float **dist_table, int axlen, int *ax){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<l;m++){
 			dist_table[l][m] = synteny_dist(dim,arr[l],arr[m],axlen,ax);
@@ -579,7 +563,6 @@ void max_list_from_matrix(int dim, int num, float **matrix, float *out_list, int
 	int l;
 	int m;
 	if(axis == 1){
-		#pragma omp parallel for private(m)
 		for(l=0;l<num;l++){
 			out_list[l] = matrix[l][0];
 			for(m=1;m<dim;m++){
@@ -589,7 +572,6 @@ void max_list_from_matrix(int dim, int num, float **matrix, float *out_list, int
 			}
 		}
 	}else if(axis == 0){
-		#pragma omp parallel for private(l)
 		for(m=0;m<dim;m++){
 			out_list[m] = matrix[0][m];
 			for(l=0;l<num;l++){
@@ -605,7 +587,6 @@ void min_list_from_matrix(int dim, int num, float **matrix, float *out_list, int
 	int l;
 	int m;
 	if(axis == 1){
-		#pragma omp parallel for private(m)
 		for(l=0;l<num;l++){
 			out_list[l] = matrix[l][0];
 			for(m=1;m<dim;m++){
@@ -615,7 +596,6 @@ void min_list_from_matrix(int dim, int num, float **matrix, float *out_list, int
 			}
 		}
 	}else if(axis == 0){
-		#pragma omp parallel for private(l)
 		for(m=0;m<dim;m++){
 			out_list[m] = matrix[0][m];
 			for(l=0;l<num;l++){
@@ -631,7 +611,6 @@ void max_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list,
 	int l;
 	int m;
 	if(axis == 1){
-		#pragma omp parallel for private(m)
 		for(l=0;l<num;l++){
 			out_list[l] = matrix[l][0];
 			pos[l] = 0;
@@ -643,7 +622,6 @@ void max_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list,
 			}
 		}
 	}else if(axis == 0){
-		#pragma omp parallel for private(l)
 		for(m=0;m<dim;m++){
 			out_list[m] = matrix[0][m];
 			pos[m] = 0;
@@ -661,7 +639,6 @@ void min_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list,
 	int l;
 	int m;
 	if(axis == 1){
-		#pragma omp parallel for private(m)
 		for(l=0;l<num;l++){
 			out_list[l] = matrix[l][0];
 			pos[l] = 0;
@@ -673,7 +650,6 @@ void min_pos_matrix(int dim, int num, float **matrix, int *pos, float *out_list,
 			}
 		}
 	}else if(axis == 0){
-		#pragma omp parallel for private(l)
 		for(m=0;m<dim;m++){
 			out_list[m] = matrix[0][m];
 			pos[m] = 0;
@@ -693,7 +669,6 @@ void min_dist_table_position(int num, float **matrix, float *dist, int *position
 	float minimum = matrix[1][0];
 	int l_pos = 1;
 	int m_pos = 0;
-	#pragma omp parallel for private(m)
 	for(l=1;l<num;l++){
 		for(m=0;m<l;m++){
 			if(minimum > matrix[l][m]){
@@ -729,7 +704,6 @@ double d_arithm_ave(int dim, double *list){
 void arithm_ave_list(int num, int dim, float **arr, float *list){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<dim;m++){
 			list[m] += arr[l][m];
@@ -744,7 +718,6 @@ void arithm_ave_list(int num, int dim, float **arr, float *list){
 void d_arithm_ave_list(int num, int dim, double **arr, double *list){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<dim;m++){
 			list[m] += arr[l][m];
@@ -759,7 +732,6 @@ void d_arithm_ave_list(int num, int dim, double **arr, double *list){
 void add_column_of_matrix(int num, int dim, int *ref_list, float **matrix, float *list){
 	int l;
 	int m;
-	#pragma omp parallel for private(m)
 	for(l=0;l<num;l++){
 		for(m=0;m<dim;m++){
 			list[m] += matrix[ref_list[l]][m];

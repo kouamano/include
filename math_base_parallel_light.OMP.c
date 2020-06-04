@@ -314,7 +314,6 @@ float synteny_dist(int len, float *list1, float *list2, int axlen, int *ax){
 			}
 		}
 	}
-	#pragma omp parallel for
 	for(i=0;i<len;i++){
 		tmp_sample[i] = list2[i] - list1[i];
 	}

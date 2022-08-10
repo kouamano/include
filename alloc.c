@@ -19,7 +19,6 @@
 /*************************************************/
 /* _alloc_vec                                    */
 /*************************************************/
- 
 char *c_alloc_vec(int num){
 	char *c;
 	if((c = malloc((size_t)sizeof(char)*num)) == NULL){
@@ -68,10 +67,10 @@ double *d_alloc_vec(int num){
 }
 
 
+
 /*************************************************/
 /* _calloc_vec                                   */
 /*************************************************/
-
 char *c_calloc_vec(int num){
 	char *c;
 	if((c = calloc((size_t)num,(size_t)sizeof(char))) == NULL){
@@ -110,11 +109,9 @@ double *d_calloc_vec(int num){
 
 
 
-
 /*************************************************/
 /* _alloc_mat                                    */
 /*************************************************/
-
 char **c_alloc_mat(int num, int dim){
 	char **c;
 	int i;
@@ -130,6 +127,10 @@ char **c_alloc_mat(int num, int dim){
 		c[i] = c[i-1]+dim;
 	}
 	return(c);
+}
+void c_free_mat(char **c){
+	free(c[0]);
+	free(c);
 }
 
 char ***S_alloc_mat(int num, int dim, int len){
@@ -160,7 +161,11 @@ char ***S_alloc_mat(int num, int dim, int len){
 
 	return(c);
 }
-
+void S_free_mat(char ***c){
+	free(c[0][0]);
+	free(c[0]);
+	free(c);
+}
 
 int **i_alloc_mat(int num, int dim){
 	int **m;
@@ -177,6 +182,10 @@ int **i_alloc_mat(int num, int dim){
 		m[i] = m[i-1]+dim;
 	}
 	return(m);
+}
+void i_free_mat(int **m){
+	free(m[0]);
+	free(m);
 }
 
 float **f_alloc_mat(int num, int dim){
@@ -195,6 +204,10 @@ float **f_alloc_mat(int num, int dim){
 	}
 	return(m);
 }
+void f_free_mat(float **m){
+	free(m[0]);
+	free(m);
+}
 
 double **d_alloc_mat(int num, int dim){
 	double **m;
@@ -212,12 +225,16 @@ double **d_alloc_mat(int num, int dim){
 	}
 	return(m);
 }
+void d_free_mat(double **m){
+	free(m[0]);
+	free(m);
+}
+
 
 
 /*************************************************/
 /* _calloc_mat                                   */
 /*************************************************/
-
 char **c_calloc_mat(int num, int dim){
 	char **c;
 	int i;
@@ -234,6 +251,7 @@ char **c_calloc_mat(int num, int dim){
 	}
 	return(c);
 }
+/* USE: c_free_mat() */
 
 int **i_calloc_mat(int num, int dim){
 	int **m;
@@ -251,6 +269,7 @@ int **i_calloc_mat(int num, int dim){
 	}
 	return(m);
 }
+/* USE: i_free_mat() */
 
 float **f_calloc_mat(int num, int dim){
 	float **m;
@@ -268,6 +287,7 @@ float **f_calloc_mat(int num, int dim){
 	}
 	return(m);
 }
+/* USE: f_free_mat() */
 
 double **d_calloc_mat(int num, int dim){
 	double **m;
@@ -285,6 +305,7 @@ double **d_calloc_mat(int num, int dim){
 	}
 	return(m);
 }
+/* USE: d_free_mat() */
 
 
 
@@ -309,6 +330,10 @@ float **f_alloc_lower_triangle(int dim){
 	}
 	return(ff);
 }
+void f_free_triangle(float **ff){
+	free(ff[0]);
+	free(ff);
+}
 
 double **d_alloc_lower_triangle(int dim){
 	double **ff;
@@ -328,11 +353,16 @@ double **d_alloc_lower_triangle(int dim){
 	}
 	return(ff);
 }
+void d_free_triangle(double **ff){
+	free(ff[0]);
+	free(ff);
+}
+
+
 
 /*************************************************/
 /* _calloc_triangle                              */
 /*************************************************/
-
 float **f_calloc_lower_triangle(int dim){
 	float **ff;
 	int i;
@@ -351,6 +381,7 @@ float **f_calloc_lower_triangle(int dim){
 	}
 	return(ff);
 }
+/* USE: f_free_triangle() */
 
 double **d_calloc_lower_triangle(int dim){
 	double **ff;
@@ -370,6 +401,7 @@ double **d_calloc_lower_triangle(int dim){
 	}
 	return(ff);
 }
+/* USE: d_free_triangle() */
 
 float **f_calloc_triangle(int dim){
 	float **ff;
@@ -437,7 +469,7 @@ unsigned long long int *ulli_calloc_vec(int num){
 	return(v);
 }
 
-float *f_balloc_vec(int num, int base){
+float *f_balloc_vec(int num, int base){	//base使われてない?
 	int i;
 	float *v;
 	if((v = malloc((size_t)sizeof(float)*num)) == NULL){
@@ -483,6 +515,3 @@ int **i_ralloc_mat(int num, int dim){
 	}
 	return(m);
 }
-
-
-

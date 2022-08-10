@@ -403,7 +403,7 @@ double **d_calloc_lower_triangle(int dim){
 }
 /* USE: d_free_triangle() */
 
-float **f_calloc_triangle(int dim){
+float **f_calloc_triangle(int dim){	//不要か?
 	float **ff;
 	int i;
 	//dim = dim + 1;

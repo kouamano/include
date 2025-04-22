@@ -73,7 +73,7 @@ double *d_alloc_vec(int num){
 /*************************************************/
 char *c_calloc_vec(int num){
 	char *c;
-	if((c = calloc((size_t)num,(size_t)sizeof(char))) == NULL){
+	if((c = calloc(num,(size_t)sizeof(char))) == NULL){
 		fprintf(stderr,"[E]failed : calloc() at %ld byte.\n",(long int)sizeof(char)*num);
 		exit(1);
 	}
@@ -82,7 +82,7 @@ char *c_calloc_vec(int num){
 
 int *i_calloc_vec(int num){
 	int *v;
-	if((v = calloc((size_t)num,(size_t)sizeof(int))) == NULL){
+	if((v = calloc(num,(size_t)sizeof(int))) == NULL){
 		fprintf(stderr,"[E]failed : calloc() at %ld byte.\n",(long int)sizeof(int)*num);
 		exit(1);
 	}
@@ -91,7 +91,7 @@ int *i_calloc_vec(int num){
 
 float *f_calloc_vec(int num){
 	float *v;
-	if((v = calloc((size_t)num,(size_t)sizeof(float))) == NULL){
+	if((v = calloc(num,(size_t)sizeof(float))) == NULL){
 		fprintf(stderr,"[E]failed : calloc() at %ld byte.\n",(long int)sizeof(float)*num);
 		exit(1);
 	}
@@ -100,7 +100,7 @@ float *f_calloc_vec(int num){
 
 double *d_calloc_vec(int num){
 	double *v;
-	if((v = calloc((size_t)num,(size_t)sizeof(double))) == NULL){
+	if((v = calloc(num,(size_t)sizeof(double))) == NULL){
 		fprintf(stderr,"[E]failed : calloc() at %ld byte.\n",(long int)sizeof(double)*num);
 		exit(1);
 	}
